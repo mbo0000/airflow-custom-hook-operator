@@ -1,16 +1,14 @@
 from airflow import DAG
-# from airflow.utils.dates import days_ago
-from airflow.operators.bash import BashOperator
-# from airflow.operators.python import PythonOperator, BranchPythonOperator
-from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
+from airflow.operators.python import PythonOperator
+from aws_s3.s3_operator import S3Operator
 from datetime import datetime
+
+
 
 with DAG(dag_id = 'snowf_s3', start_date = datetime(2024,1,1), catchup=False, schedule = '@daily') as dag:
     
-    
-    my_task = BashOperator(
-        task_id = 'my_task'
-        , bash_command = 'echo my task'
+    t0 = S3Operator(
+        task_id = 't0'
     )
 
-    my_task
+    t0
