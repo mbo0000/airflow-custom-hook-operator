@@ -6,8 +6,7 @@ from datetime import datetime, timedelta
 DATABASE    = 'SNOWFLAKE_SAMPLE_DATA'
 SCHEMA      = 'TPCH_SF1'
 FILE_FORMAT = 'csv'
-# TO_EMAILS   = ['fake.client@company.com']
-TO_EMAILS   = ['minhbo0000@gmail.com']
+TO_EMAILS   = ['fake.client@company.com']
 
 
 table_query = {
@@ -30,8 +29,7 @@ default_args = {
     ,'retry_delay'      : timedelta(seconds=5)
     , 'email_on_failure': True
     , 'email_on_retry'  : True
-    # , 'email'           : ['admin.account@company.com']
-    , 'email'           : ['mbo0000da@gmail.com']
+    , 'email'           : ['admin.account@company.com']
 }
 
 with DAG(
