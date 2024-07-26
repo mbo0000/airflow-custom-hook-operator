@@ -1,11 +1,13 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
-from aws_s3.s3_operator import SnowfToS3Operator
-from datetime import datetime
+from fake_company.fake_comp_operator import FakeCompOperator
+from airflow.operators.bash import BashOperator
+from datetime import datetime, timedelta
 
 DATABASE    = 'SNOWFLAKE_SAMPLE_DATA'
 SCHEMA      = 'TPCH_SF1'
 FILE_FORMAT = 'csv'
+# TO_EMAILS   = ['fake.client@company.com']
+TO_EMAILS   = ['minhbo0000@gmail.com']
 
 
 table_query = {
@@ -23,20 +25,32 @@ table_query = {
                     '''
 }
 
-def tables():
-    print([key for key,_ in table_query.items()])
+default_args = {
+    'retries'           : 1
+    ,'retry_delay'      : timedelta(seconds=5)
+    , 'email_on_failure': True
+    , 'email_on_retry'  : True
+    # , 'email'           : ['admin.account@company.com']
+    , 'email'           : ['mbo0000da@gmail.com']
+}
 
-with DAG(dag_id = 'fake_company_s3_data_export', start_date = datetime(2024,1,1), catchup=False, schedule = '@daily') as dag:
+with DAG(
+    dag_id          = 'snowf_s3_fake_company_data_export'
+    , start_date    = datetime(2024,1,1)
+    , catchup       = False
+    , schedule      = '@daily'
+    , default_args  = default_args
+) as dag:
     
-    data_export = SnowfToS3Operator(
-        task_id = 'data_export'
-        , params = {
+    data_export     = FakeCompOperator(
+        task_id     = 'data_export'
+        , params    = {
             'database'      : DATABASE
             , 'schema'      : SCHEMA
             , 'file_format' : FILE_FORMAT
             , 'table_query' : table_query
+            , 'to_emails'   : TO_EMAILS
         }
-        # implement email notifications per status
     )
 
     data_export
