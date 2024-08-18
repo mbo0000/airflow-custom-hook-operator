@@ -7,11 +7,10 @@ SCHEMA      = 'NBA'
 FILE_FORMAT = 'csv'
 TO_EMAILS   = ['my.email@company.com']
 
-
-tables = {
+tables_key  = {
         'games' : 'games/'
         ,'games_statistics': 'games/statistics/'
-        }
+    }
 
 default_args = {
     'retries'           : 1
@@ -35,7 +34,7 @@ with DAG(
             'database'      : DATABASE
             , 'schema'      : SCHEMA
             , 'file_format' : FILE_FORMAT
-            , 'table_query' : tables
+            , 'table_query' : tables_key
             , 'to_emails'   : TO_EMAILS
         }
     )
