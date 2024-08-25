@@ -62,7 +62,7 @@ Below are the steps to locally setup the project:
     ```
     The rest of the variables can be leave with default values.
 6. Create [Google Account App Password](https://myaccount.google.com/apppasswords) and save the generated password.
-7. Run docker compose to launch Airflow instance. Use [localhost](http://localhost:8080/) access Airlfow's web UI.
+7. Run docker compose to launch Airflow instance. Use [localhost:8080](http://localhost:8080/) access Airflow's web UI.
 8. Navigate to Admin >> Connections and create 2 connections:
    - Snowflake:
       - Connection Id: `snowflake_conn`
